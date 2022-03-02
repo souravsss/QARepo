@@ -1,0 +1,183 @@
+https://www.toolsqa.com/katalon-studio/executing-test-katalon-studio-from-command-line/#:~:text=1%20Open%20the%20command%20prompt%20and%20navigate%20to,test.%20...%203%20Press%20Enter%20to%20start%20execution.
+
+cd C:\Katalon\4.7 katalon -runMode=console -projectPath="C:\Project\Sample Project.prj" -reportFolder="Reports" -reportFileName="report" -retry=0 -testSuitePath="Test Suites/TS_RegressionTest" -browserType="Chrome"
+
+katalonc -noSplash -runMode=console -projectPath="E:\OneDrive - Kovair Software\KovairDevOpsAutomation\KovairDevOpsAutomation\KovairDevOpsAutomation.prj" -retry=0 -testSuitePath="Test Suites/Users/LDAP" -executionProfile="default" -browserType="Chrome" -apiKey="5857a4c0-fccb-4498-9134-c0b1487ac643"
+
+C:\Users\souravs\Desktop\Katalon_Studio_Windows_64-7.0.8
+
+https://www.guru99.com/selenium-tutorial.html
+
+
+JDK installation path : C:\Program Files\Java\jre1.8.0_321
+
+
+https://www.guru99.com/xslt-report-selenium.html
+
+
+
+Maven : https://www.software-testing-tutorials-automation.com/2015/04/how-to-create-and-run-selenium-test-in.html#:~:text=1%20Open%20command%20prompt.%202%20Set%20MavenProject%20folder,maven%20central%20repository%20to%20local%20repository%20folder%20
+
+
+
+import org.testng.annotations.Test;
+import org.openqa.selenium.Alert;		
+import org.openqa.selenium.By;		
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.firefox.FirefoxDriver;		
+import org.testng.Assert;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class XSLTReport {
+	WebDriver driver = new ChromeDriver();
+
+  @Test(priority = 1)
+  public void login() {
+	  driver.findElement(By.id("username")).sendKeys("admin");							
+      driver.findElement(By.name("password")).sendKeys("admin");							
+      //driver.findElement(By.name("btnLogin")).click();
+      WebElement login = driver.findElement(By.xpath("//html/body/div[2]/div[3]/div/div/div/form/div[5]/div[2]/div/input"));
+      login.click();
+      Assert.assertEquals(driver.getTitle(),"Guru99 Bank Manager HomePage" );	
+  }
+  @Test(priority = 2)
+  public void verifytitle() {
+	  Assert.assertEquals(driver.getTitle(),"Guru99 Bank Manager HomePage" );		
+  }
+  @Test(priority = 0)
+  public void windowmaximize() {
+	  driver.manage().window().maximize();		
+	  driver.get("http://192.168.11.221:8080/KovairDevOps");
+  }
+  @Test(priority = 3)
+  public void logout() {
+	  driver.findElement(By.linkText("Sign Out")).click();					
+      Alert alert=driver.switchTo().alert();			
+      alert.accept();
+      Assert.assertEquals(driver.getTitle(),"Guru99 Bank Home Page" );
+  }
+}
+
+
+
+
+import org.openqa.selenium.Alert;		
+import org.openqa.selenium.By;		
+import org.openqa.selenium.WebDriver;		
+import org.openqa.selenium.firefox.FirefoxDriver;		
+import org.testng.Assert;		
+import org.testng.annotations.Test;		
+    		
+public class XSLTReport {				
+    WebDriver driver= new FirefoxDriver();					
+
+    @Test(priority=1)			
+    public void Login() 					
+    {	
+    	System.setProperty("webdriver.gecko.driver", "C:\\geckodriver-v0.30.0-win64\\geckodriver.exe");
+    	//System.setProperty("webdriver.chrome.driver", "C:\\chromedriver-win32\\chromedriver.exe");
+        //Launching the Site.		
+        driver.get("http://demo.guru99.com/V4/");					
+                        		
+        //Login to Guru99 		
+        driver.findElement(By.name("uid")).sendKeys("mngr34926");							
+        driver.findElement(By.name("password")).sendKeys("amUpenu");							
+        driver.findElement(By.name("btnLogin")).click();					
+        //Verifying the manager home page		
+        Assert.assertEquals(driver.getTitle(),"Guru99 Bank Manager HomePage" );					
+    }		
+    		
+    @Test(priority=2)			
+    public void verifytitle()					
+    {		
+        //Verifying the title of the home page		
+        Assert.assertEquals(driver.getTitle(),"Guru99 Bank Manager HomePage" );					
+        }		
+    		
+    @Test(priority=3)			
+    public void Logout()					
+    {		
+        driver.findElement(By.linkText("Log out")).click();					
+        Alert alert=driver.switchTo().alert();			
+        alert.accept();		
+        //Verifying the title of the logout page		
+        Assert.assertEquals(driver.getTitle(),"Guru99 Bank Home Page" );					
+    }		
+}
+
+
+
+public class MavenTest1 {
+	
+	static ExtentTest test;
+	static ExtentReports report;
+	
+	public static void startTest() {
+		report = new ExtentReports(System.getProperty("user.dir")+"ExtentReportResults.html");
+		test = report.startTest("ExtentDemo");
+	}
+	
+	public String baseUrl = "https://www.google.com/";  
+	String driverPath = "C://chromedriver-win32//chromedriver.exe";  
+	public WebDriver driver ;   
+	
+	@Test   
+	public void test() {
+		System.setProperty("webdriver.chrome.driver", driverPath);  
+		driver = new ChromeDriver();  
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);  
+		driver.manage().window().maximize();  
+		driver.get(baseUrl);  
+		String URL= driver.getCurrentUrl();  
+		System.out.print(URL); 
+		String title = driver.getTitle();                  
+		System.out.println(title); 
+	}
+	
+	@BeforeTest  
+	public void beforeTest() {
+		System.out.println("before test");  
+	}
+	
+	@AfterTest  
+	public void afterTest() {
+		driver.quit();  
+		System.out.println("after test");  
+	}
+	
+	public static void endTest() {
+		report.endTest(test);
+		report.flush();
+	}
+}
+
+
+<dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+	
+    
+    
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+      <version>2.41.0</version>
+      <scope>test</scope>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.1.1</version>
+      <scope>test</scope>
+      <type>jar</type>
+    </dependency>
+
+
+
